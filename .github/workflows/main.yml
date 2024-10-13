@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       manual_trigger:
-        description: 'Manually trigger Terraform Apply (Prod)'
+        description: 'Manually trigger Terraform Apply'
         required: true
 
 jobs:

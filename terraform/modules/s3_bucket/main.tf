@@ -33,10 +33,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "example" {
   }
 }
 
-data "aws_caller_identity" "current" {}
-
-data "aws_region" "current" {}
-
 
 
 

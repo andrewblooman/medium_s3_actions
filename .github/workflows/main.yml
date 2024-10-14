@@ -34,13 +34,15 @@ jobs:
           terraform plan -out=tfplan
 
       - name: Save Terraform Plan
-        run: terraform show -json tfplan > plan.tfplan.json
+        run: |
+         cd terraform/envs/test  
+         terraform show -json tfplan > plan.tfplan.json
 
       - name: Upload Terraform Plan Artifact
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan-json-test
-          path: plan.tfplan.json
+          path: terraform/envs/test/plan.tfplan.json
 
   checkov-scan-test:
     name: Checkov Scan (Test)

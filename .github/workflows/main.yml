@@ -82,7 +82,7 @@ jobs:
 
       - name: Terraform Apply for Test
         run: |
-          cd envs/test
+          cd terraform/envs/test
           terraform apply --auto-approve
 
   terraform-plan-uat:

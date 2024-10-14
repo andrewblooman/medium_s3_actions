@@ -101,18 +101,20 @@ jobs:
 
       - name: Terraform Plan for UAT
         run: |
-          cd envs/uat
+          cd terraform/envs/uat
           terraform init
           terraform plan -out=tfplan
 
       - name: Save Terraform Plan
-        run: terraform show -json tfplan > plan.tfplan.json
+        run: |
+         cd terraform/envs/uat  
+         terraform show -json tfplan > plan.tfplan.json
 
       - name: Upload Terraform Plan Artifact
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan-json-uat
-          path: plan.tfplan.json
+          path: terraform/envs/uat/plan.tfplan.json
 
   checkov-scan-uat:
     name: Checkov Scan (UAT)
@@ -151,7 +153,8 @@ jobs:
 
       - name: Terraform Apply for UAT
         run: |
-          cd envs/uat
+          cd terraform/envs/uat
+          terraform init
           terraform apply --auto-approve
 
   terraform-plan-prod:
@@ -173,18 +176,20 @@ jobs:
 
       - name: Terraform Plan for Prod
         run: |
-          cd envs/prod
+          cd terraform/envs/prod
           terraform init
           terraform plan -out=tfplan
 
       - name: Save Terraform Plan
-        run: terraform show -json tfplan > plan.tfplan.json
+        run: |
+          cd terraform/envs/prod  
+          terraform show -json tfplan > plan.tfplan.json
 
       - name: Upload Terraform Plan Artifact
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan-json-prod
-          path: plan.tfplan.json
+          path: terraform/envs/prod/plan.tfplan.json
 
   checkov-scan-prod:
     name: Checkov Scan (Prod)
@@ -223,5 +228,6 @@ jobs:
 
       - name: Terraform Apply for Prod
         run: |
-          cd envs/prod
+          cd terraform/envs/prod
+          terraform init
           terraform apply --auto-approve
